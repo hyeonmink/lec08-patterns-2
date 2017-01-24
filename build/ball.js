@@ -8,9 +8,13 @@ var Ball = (function () {
         this.dy = 3.5;
         this.color = "red";
     }
+    /**
+     * Moves the bal its speed
+     */
     Ball.prototype.move = function () {
         this.x += this.dx;
         this.y += this.dy;
+        //check if hit the left wall      
         if (this.x < Ball.LEFT_BOUNDARY) {
             this.x = Ball.LEFT_BOUNDARY;
             this.dx = -1 * this.dx;
@@ -28,7 +32,13 @@ var Ball = (function () {
             this.dy = -1 * this.dy;
         }
     };
+    /**
+     * Determines if two balls intersect
+     * @param other The ball to check against
+     * @returns if they intersect
+     */
     Ball.prototype.isTouching = function (other) {
+        //use pythogorean theorum to calculate distance
         var distance = Math.sqrt((this.x - other.x) * (this.x - other.x) + (this.y - other.y) * (this.y - other.y));
         return distance < (this.diameter / 2.0 + other.diameter / 2.0);
     };

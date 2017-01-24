@@ -21,10 +21,14 @@ class Ball
       this.color = "red";
     }
     
+    /**
+     * Moves the bal its speed
+     */
     public move():void {
         this.x += this.dx;
         this.y += this.dy;
-        
+
+        //check if hit the left wall      
         if(this.x < Ball.LEFT_BOUNDARY)
         {
             this.x = Ball.LEFT_BOUNDARY;
@@ -47,7 +51,13 @@ class Ball
         }
     }
         
+    /**
+     * Determines if two balls intersect
+     * @param other The ball to check against
+     * @returns if they intersect
+     */
     public isTouching(other:Ball): boolean {
+        //use pythogorean theorum to calculate distance
         let distance:number = Math.sqrt(
               (this.x-other.x)*(this.x-other.x) + (this.y-other.y)*(this.y-other.y)
             );            
