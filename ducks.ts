@@ -1,52 +1,51 @@
+/***
+ * Method Strategies 
+ ***/
+
 interface FlyBehavior {
   fly():void;
 }
 
-export class CanFlyBehavior implements FlyBehavior {
-  fly():void {
-    console.log("Flies away!");
-  }
+class CanFlyBehavior implements FlyBehavior {
+  fly():void { console.log("The duck flies through the air"); }
 }
 
 class NoFlyBehavior implements FlyBehavior {
   fly():void {}
 }
 
-/** Example of strategies as Functions not Classes */
-interface FlyFunction {
-  (dist:number): void;
+interface QuackBehavior {
+  quack():void;
 }
 
-let canFlyFunction:FlyFunction = function(dist:number){
-  console.log("Flying!");
+class Quack implements QuackBehavior {
+  quack() { console.log("Quack quack quack!")}
 }
 
-// let behavior:FlyBehavior = new NoFlyBehavior();
-// behavior.fly();
+class Squeek implements QuackBehavior {
+  quack() { console.log("Squeek!")}
+}
+
+class SilentQuack implements QuackBehavior {
+  quack() {};
+}
 
 
 /**
- * A class that represents a Duck.
- * Intended to be extended to specific species.
+ * A class that represents an abstract Duck.
  */
 export abstract class Duck {
 
-  public flyBehavior:FlyBehavior = new CanFlyBehavior();
-  //private eatBehavior = new EatsBehavior();
+  //defaut can fly and quack
+  protected flyBehavior:FlyBehavior = new CanFlyBehavior();
+  protected quackBehavior:QuackBehavior = new Quack();
 
-  /**
-   * Has the duck speak
-   */
   quack() {
-    console.log("quack!"); //prints a message
+    this.quackBehavior.quack();
   }
 
-  /**
-   * Has the duck swim.
-   * @param distance how far to swim
-   */
-  swim(distance:number) {
-    console.log("Swims the "+distance+"m duckstyle.") //prints a message about swimming
+  fly() {
+    this.flyBehavior.fly();
   }
 
   /**
@@ -54,15 +53,6 @@ export abstract class Duck {
    * @returns A description of the duck
    */
   abstract display():string;
-
-  fly() {
-    // console.log("Flies away!");
-    this.flyBehavior.fly();
-  }
-
-  // eat() {
-  //   this.eatBehavior.eat();
-  // }
 }
 
 
@@ -70,7 +60,6 @@ export class RedheadDuck extends Duck {
   display() {
     return "Looks like a RedHead";
   }
-
 }
 
 
@@ -92,10 +81,7 @@ export class RubberDuck extends Duck {
   constructor() {
     super();
     this.flyBehavior = new NoFlyBehavior();
-  }
-
-  quack() {
-    console.log('squeek!')
+    this.quackBehavior = new Squeek();
   }
 
   display() {
@@ -107,9 +93,9 @@ export class DecoyDuck extends Duck {
   constructor() {
     super();
     this.flyBehavior = new NoFlyBehavior();
+    this.quackBehavior = new SilentQuack();
   }
 
-  quack() {}
   display() {
     return "Looks like a duck, but isn't";
   }

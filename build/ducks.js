@@ -1,3 +1,6 @@
+/***
+ * Method Strategies
+ ***/
 "use strict";
 var __extends = (this && this.__extends) || function (d, b) {
     for (var p in b) if (b.hasOwnProperty(p)) d[p] = b[p];
@@ -7,50 +10,47 @@ var __extends = (this && this.__extends) || function (d, b) {
 var CanFlyBehavior = (function () {
     function CanFlyBehavior() {
     }
-    CanFlyBehavior.prototype.fly = function () {
-        console.log("Flies away!");
-    };
+    CanFlyBehavior.prototype.fly = function () { console.log("The duck flies through the air"); };
     return CanFlyBehavior;
 }());
-exports.CanFlyBehavior = CanFlyBehavior;
 var NoFlyBehavior = (function () {
     function NoFlyBehavior() {
     }
     NoFlyBehavior.prototype.fly = function () { };
     return NoFlyBehavior;
 }());
-var canFlyFunction = function (dist) {
-    console.log("Flying!");
-};
-// let behavior:FlyBehavior = new NoFlyBehavior();
-// behavior.fly();
+var Quack = (function () {
+    function Quack() {
+    }
+    Quack.prototype.quack = function () { console.log("Quack quack quack!"); };
+    return Quack;
+}());
+var Squeek = (function () {
+    function Squeek() {
+    }
+    Squeek.prototype.quack = function () { console.log("Squeek!"); };
+    return Squeek;
+}());
+var SilentQuack = (function () {
+    function SilentQuack() {
+    }
+    SilentQuack.prototype.quack = function () { };
+    ;
+    return SilentQuack;
+}());
 /**
- * A class that represents a Duck.
- * Intended to be extended to specific species.
+ * A class that represents an abstract Duck.
  */
 var Duck = (function () {
     function Duck() {
+        //defaut can fly and quack
         this.flyBehavior = new CanFlyBehavior();
-        // eat() {
-        //   this.eatBehavior.eat();
-        // }
+        this.quackBehavior = new Quack();
     }
-    //private eatBehavior = new EatsBehavior();
-    /**
-     * Has the duck speak
-     */
     Duck.prototype.quack = function () {
-        console.log("quack!"); //prints a message
-    };
-    /**
-     * Has the duck swim.
-     * @param distance how far to swim
-     */
-    Duck.prototype.swim = function (distance) {
-        console.log("Swims the " + distance + "m duckstyle."); //prints a message about swimming
+        this.quackBehavior.quack();
     };
     Duck.prototype.fly = function () {
-        // console.log("Flies away!");
         this.flyBehavior.fly();
     };
     return Duck;
@@ -59,7 +59,7 @@ exports.Duck = Duck;
 var RedheadDuck = (function (_super) {
     __extends(RedheadDuck, _super);
     function RedheadDuck() {
-        return _super.apply(this, arguments) || this;
+        return _super !== null && _super.apply(this, arguments) || this;
     }
     RedheadDuck.prototype.display = function () {
         return "Looks like a RedHead";
@@ -70,7 +70,7 @@ exports.RedheadDuck = RedheadDuck;
 var MallardDuck = (function (_super) {
     __extends(MallardDuck, _super);
     function MallardDuck() {
-        return _super.apply(this, arguments) || this;
+        return _super !== null && _super.apply(this, arguments) || this;
     }
     MallardDuck.prototype.display = function () {
         return "Looks like a Mallard";
@@ -81,7 +81,7 @@ exports.MallardDuck = MallardDuck;
 var TealDuck = (function (_super) {
     __extends(TealDuck, _super);
     function TealDuck() {
-        return _super.apply(this, arguments) || this;
+        return _super !== null && _super.apply(this, arguments) || this;
     }
     TealDuck.prototype.display = function () {
         return "Looks like a Teal";
@@ -94,11 +94,9 @@ var RubberDuck = (function (_super) {
     function RubberDuck() {
         var _this = _super.call(this) || this;
         _this.flyBehavior = new NoFlyBehavior();
+        _this.quackBehavior = new Squeek();
         return _this;
     }
-    RubberDuck.prototype.quack = function () {
-        console.log('squeek!');
-    };
     RubberDuck.prototype.display = function () {
         return "A rubber ducky!";
     };
@@ -110,9 +108,9 @@ var DecoyDuck = (function (_super) {
     function DecoyDuck() {
         var _this = _super.call(this) || this;
         _this.flyBehavior = new NoFlyBehavior();
+        _this.quackBehavior = new SilentQuack();
         return _this;
     }
-    DecoyDuck.prototype.quack = function () { };
     DecoyDuck.prototype.display = function () {
         return "Looks like a duck, but isn't";
     };

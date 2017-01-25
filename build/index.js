@@ -1,18 +1,24 @@
 "use strict";
 var Ducks = require("./ducks"); //subclasses
-//make some ducks
-var mallard = new Ducks.MallardDuck(); //example
-var ducks = [];
-ducks.push(mallard);
-ducks.push(new Ducks.RedheadDuck());
-ducks.push(new Ducks.TealDuck());
-ducks.push(new Ducks.RubberDuck());
-ducks.push(new Ducks.DecoyDuck());
-//rubby ducky can fly
-ducks[3].flyBehavior = new Ducks.CanFlyBehavior();
-//have them all act!
-ducks.forEach(function (duck) {
-    console.log(duck.display());
-    duck.quack();
-    duck.fly();
-});
+var PondSimulation = (function () {
+    function PondSimulation() {
+        this.ducks = [];
+        var mallard = new Ducks.MallardDuck(); //example
+        this.ducks.push(mallard);
+        this.ducks.push(new Ducks.RedheadDuck());
+        this.ducks.push(new Ducks.TealDuck());
+        this.ducks.push(new Ducks.RubberDuck());
+        this.ducks.push(new Ducks.DecoyDuck());
+    }
+    PondSimulation.prototype.run = function () {
+        this.ducks.forEach(function (duck) {
+            console.log("..." + duck.display());
+            duck.quack();
+            duck.fly();
+            console.log(""); //blank line
+        });
+    };
+    return PondSimulation;
+}());
+var sim = new PondSimulation();
+sim.run();
