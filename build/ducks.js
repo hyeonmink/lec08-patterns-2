@@ -59,7 +59,7 @@ exports.Duck = Duck;
 var RedheadDuck = (function (_super) {
     __extends(RedheadDuck, _super);
     function RedheadDuck() {
-        return _super !== null && _super.apply(this, arguments) || this;
+        return _super.apply(this, arguments) || this;
     }
     RedheadDuck.prototype.display = function () {
         return "Looks like a RedHead";
@@ -70,7 +70,7 @@ exports.RedheadDuck = RedheadDuck;
 var MallardDuck = (function (_super) {
     __extends(MallardDuck, _super);
     function MallardDuck() {
-        return _super !== null && _super.apply(this, arguments) || this;
+        return _super.apply(this, arguments) || this;
     }
     MallardDuck.prototype.display = function () {
         return "Looks like a Mallard";
@@ -81,7 +81,7 @@ exports.MallardDuck = MallardDuck;
 var TealDuck = (function (_super) {
     __extends(TealDuck, _super);
     function TealDuck() {
-        return _super !== null && _super.apply(this, arguments) || this;
+        return _super.apply(this, arguments) || this;
     }
     TealDuck.prototype.display = function () {
         return "Looks like a Teal";

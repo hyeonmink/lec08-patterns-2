@@ -2,11 +2,13 @@
  * Method Strategies 
  ***/
 
-interface FlyBehavior {
-  fly():void;
+abstract class FlyBehavior {
+  private speed;
+  abstract fly():void;
+  getSpeed():number;
 }
 
-class CanFlyBehavior implements FlyBehavior {
+class CanFlyBehavior extends FlyBehavior {
   fly():void { console.log("The duck flies through the air"); }
 }
 
@@ -48,6 +50,10 @@ export abstract class Duck {
     this.flyBehavior.fly();
   }
 
+  getSpeed() {
+    return this.flyBehavior.getSpeed();
+  }
+
   /**
    * Gets the duck's description
    * @returns A description of the duck
@@ -55,6 +61,21 @@ export abstract class Duck {
   abstract display():string;
 }
 
+class HatDecorator extends DuckDecorator {
+  private duck:Duck;
+  private tipStrategy:tipBehavior;
+
+  setTip() {
+
+  }
+
+  tip() {
+    this.tipStrategy.tip();
+  }
+
+}
+
+new HatDecorator(new Mallard(), new JauntyTip())
 
 export class RedheadDuck extends Duck {
   display() {
